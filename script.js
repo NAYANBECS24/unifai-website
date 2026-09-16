@@ -8,6 +8,40 @@
   'use strict';
 
   // --------------------------------------------------------------------------
+  // 0. Background Video Autoplay Guarantee (Brave / Safari / Mobile friendly)
+  // --------------------------------------------------------------------------
+  const bgVideo = document.getElementById('bgVideo') || document.querySelector('.hero-photo video');
+  if (bgVideo) {
+    bgVideo.muted = true;
+    bgVideo.defaultMuted = true;
+    bgVideo.playsInline = true;
+
+    const playVideo = () => {
+      const p = bgVideo.play();
+      if (p !== undefined) {
+        p.catch(() => {
+          // Autoplay blocked by browser policy, play on first interaction
+          const onInteract = () => {
+            bgVideo.play();
+            window.removeEventListener('click', onInteract);
+            window.removeEventListener('touchstart', onInteract);
+            window.removeEventListener('scroll', onInteract);
+          };
+          window.addEventListener('click', onInteract, { once: true });
+          window.addEventListener('touchstart', onInteract, { once: true });
+          window.addEventListener('scroll', onInteract, { once: true });
+        });
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', playVideo);
+    } else {
+      playVideo();
+    }
+  }
+
+  // --------------------------------------------------------------------------
   // 1. Mobile Menu Drawer & Backdrop Controller
   // --------------------------------------------------------------------------
   const burger = document.getElementById('burgerBtn');
