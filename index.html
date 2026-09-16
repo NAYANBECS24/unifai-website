@@ -1,868 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vesper.ai — Operational AI Infrastructure</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cg transform='rotate(-30 12 12)'%3E%3Ccircle cx='7.3' cy='3.2' r='1.45'/%3E%3Crect x='5.5' y='4.7' width='3.6' height='14.6' rx='1.8'/%3E%3Crect x='14.9' y='4.7' width='3.6' height='14.6' rx='1.8'/%3E%3Ccircle cx='16.7' cy='20.8' r='1.45'/%3E%3C/g%3E%3C/svg%3E">
-<style>
-html, body { background: #000000 !important; color: #ffffff; }
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("inter.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Instrument Serif";
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url("instrument-serif-italic.woff2") format("woff2");
-}
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&family=Instrument+Serif:ital@1&display=swap');
-
-:root {
-  --bg: #000000;
-  --text: #ffffff;
-  --muted: #9a9a9a;
-  --stat: #d8d8d8;
-  --border: rgba(255, 255, 255, 0.16);
-  --border-soft: rgba(255, 255, 255, 0.12);
-  --logo: 15.5px;
-  --logo-mark: 22px;
-  --nav: 14px;
-  --nav-h: 40px;
-  --btn: 13.5px;
-  --btn-h: 40px;
-  --hero-btn-h: 42px;
-  --h1: 48px;
-  --lede: 15.5px;
-  --badge: 12.5px;
-  --stat-size: 13.5px;
-  --header-y: 22px;
-  --header-x: 40px;
-  --stats-x: 72px;
-  --stats-y: 36px;
-  --hero-gap: 85px;
-  --copy-max: 860px;
-  --lede-max: 470px;
-}
-
-html, body { background: #000000; background: var(--bg, #000000); color: #ffffff; color: var(--text, #ffffff); }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  overflow-x: hidden;
-  position: relative;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-a { color: inherit; text-decoration: none; }
-button { font-family: inherit; }
-
-.grain {
-  position: fixed;
-  inset: 0;
-  opacity: 0.035;
-  pointer-events: none;
-  z-index: 100;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.hero-photo {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background: #000;
-  overflow: hidden;
-  animation: fade-in 0.01s both;
-  pointer-events: none;
-}
-.hero-photo video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 1;
-}
-/* 100% opacity, no dark overlay */
-.hero-photo::after {
-  display: none;
-}
-@keyframes fade-in {
-  from { opacity: 0.99; }
-  to { opacity: 1; }
-}
-
-.page {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-  min-height: 100dvh;
-}
-
-.header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: var(--header-y) var(--header-x) 10px;
-  z-index: 50;
-  position: relative;
-}
-
-.logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  justify-self: start;
-  font-size: var(--logo);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: #fff;
-}
-.logo svg {
-  width: var(--logo-mark);
-  height: var(--logo-mark);
-  display: block;
-}
-.logo-suffix {
-  font-weight: 400;
-}
-
-#site-nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-self: center;
-}
-#site-nav a {
-  height: var(--nav-h);
-  padding: 0 18px;
-  border-radius: 7px;
-  overflow: hidden;
-  position: relative;
-  border: 1px solid rgba(198,198,198,0.55);
-  background: linear-gradient(105deg, #050505 0%, #2a2a2a 48%, #4a4a4a 100%);
-  color: #f3f3f3;
-  font-size: var(--nav);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  display: inline-flex;
-  align-items: center;
-}
-#site-nav a::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.16) 50%, transparent 70%);
-  transform: translateX(-120%);
-  transition: transform 0.6s ease;
-}
-#site-nav a:hover::before {
-  transform: translateX(120%);
-}
-#site-nav a:hover {
-  border-color: rgba(235,235,235,0.9);
-  background: linear-gradient(105deg, #111 0%, #3a3a3a 45%, #6a6a6a 100%);
-  box-shadow: 0 0 18px rgba(200,210,230,0.18);
-}
-
-.btn {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--btn-h);
-  padding: 0 16px;
-  border-radius: 6px;
-  font-size: var(--btn);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background 0.35s, border-color 0.35s, box-shadow 0.35s, color 0.35s, filter 0.35s;
-}
-.btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.45) 48%, transparent 76%);
-  transform: translateX(-130%);
-  transition: transform 0.65s ease;
-}
-.btn:hover::after {
-  transform: translateX(130%);
-}
-.btn-solid {
-  background: linear-gradient(180deg, #ffffff 0%, #e7e7e7 48%, #cfcfcf 100%);
-  color: #111;
-  border: 1px solid #fff;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95);
-}
-.btn-solid:hover {
-  background: linear-gradient(180deg, #fff 0%, #f3f6ff 42%, #d5def2 100%);
-  border-color: #f2f6ff;
-  box-shadow: inset 0 1px 0 #fff, 0 0 22px rgba(186,208,255,0.35), 0 8px 18px rgba(255,255,255,0.12);
-}
-.btn-ghost {
-  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.45) 50%, rgba(160,175,200,0.08));
-  color: #fff;
-  border: 1px solid rgba(198,198,198,0.45);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
-}
-.btn-ghost:hover {
-  background: linear-gradient(135deg, rgba(210,225,255,0.18), rgba(0,0,0,0.35) 48%, rgba(180,195,220,0.16));
-  border-color: rgba(220,230,255,0.75);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 0 20px rgba(170,200,255,0.22);
-}
-.header-cta {
-  justify-self: end;
-}
-
-.burger {
-  display: none;
-  width: 42px;
-  height: 42px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: rgba(8,8,8,0.55);
-  z-index: 60;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  flex-direction: column;
-  padding: 0;
-}
-.burger:hover {
-  border-color: rgba(255,255,255,0.32);
-  background: rgba(255,255,255,0.05);
-}
-.burger .bar {
-  display: block;
-  width: 16px;
-  height: 1.5px;
-  background: #fff;
-  border-radius: 1px;
-  transition: transform 0.25s, opacity 0.2s;
-}
-body.menu-open .burger .b1 {
-  transform: translateY(6.5px) rotate(45deg);
-}
-body.menu-open .burger .b2 {
-  opacity: 0;
-}
-body.menu-open .burger .b3 {
-  transform: translateY(-6.5px) rotate(-45deg);
-}
-
-.menu-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  background: rgba(8,8,8,0.42);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.28s;
-}
-body.menu-open .menu-backdrop {
-  opacity: 1;
-  visibility: visible;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-}
-.mobile-nav {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 45;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.28s;
-  padding: 96px 22px 32px;
-  padding-top: max(96px, calc(env(safe-area-inset-top) + 88px));
-}
-body.menu-open .mobile-nav {
-  opacity: 1;
-  visibility: visible;
-}
-.mobile-nav a {
-  width: 100%;
-  max-width: 400px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 19px;
-  font-weight: 500;
-  color: #fff;
-  border-radius: 10px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.mobile-nav a:hover {
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(255,255,255,0.25);
-}
-body.menu-open {
-  overflow: hidden;
-}
-
-.hero {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 8px 24px var(--hero-gap);
-  min-height: 0;
-}
-.hero-copy {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: var(--copy-max);
-  width: 100%;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 22px;
-  padding: 9px 15px;
-  border: 0;
-  border-radius: 5px;
-  background: linear-gradient(90deg, #7d7d7d 0%, #2a2a2a 52%, #0a0a0a 100%);
-  color: #f2f2f2;
-  font-size: var(--badge);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-}
-.badge-star {
-  width: 18px;
-  height: 20px;
-  filter: drop-shadow(0 0 3px rgba(255,255,255,0.45));
-}
-
-h1 {
-  font-size: var(--h1);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 1.12;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.headline-line {
-  display: block;
-  overflow: hidden;
-  padding: 0.06em 0.15em 0.14em;
-}
-h1 em {
-  font-family: "Instrument Serif", "Times New Roman", Times, serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.08em;
-  letter-spacing: -0.03em;
-  color: #9a9a9a;
-}
-
-.lede {
-  max-width: var(--lede-max);
-  margin-top: 18px;
-  color: #9a9a9a;
-  font-size: var(--lede);
-  font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: -0.015em;
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 26px;
-}
-.hero-actions .btn {
-  height: var(--hero-btn-h);
-  padding: 0 18px;
-}
-.hero-actions .btn-ghost {
-  background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(0,0,0,0.5) 46%, rgba(150,170,200,0.1));
-  border: 1px solid rgba(198,198,198,0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-.hero-actions .btn-ghost:hover {
-  border-color: rgba(220,230,255,0.8);
-  box-shadow: 0 0 24px rgba(170,200,255,0.28);
-}
-.hero-actions .btn-solid:hover {
-  box-shadow: inset 0 1px 0 #fff, 0 0 26px rgba(186,208,255,0.4), 0 8px 18px rgba(255,255,255,0.14);
-}
-
-.stats {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 0 var(--stats-x) var(--stats-y);
-  padding-bottom: max(var(--stats-y), env(safe-area-inset-bottom));
-  color: var(--stat);
-}
-.stat {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  font-size: var(--stat-size);
-  letter-spacing: -0.015em;
-  white-space: nowrap;
-}
-.stat-icon {
-  width: 20px;
-  height: 20px;
-  color: #e8e8e8;
-}
-.stat-icon-wide {
-  width: 38px;
-  height: 21px;
-}
-
-/* Animations */
-.appear {
-  opacity: 1;
-  animation-duration: 1.05s;
-  animation-fill-mode: both;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  animation-delay: var(--d, 0.08s);
-}
-.appear.is-in {
-  animation: none !important;
-  opacity: 1 !important;
-  transform: none !important;
-  clip-path: none !important;
-  filter: none !important;
-}
-.appear--scale { animation-name: in-scale; }
-.appear--soft { animation-name: in-soft; }
-.appear--mask { animation-name: in-mask; }
-.appear--pop { animation-name: in-pop; }
-.appear--btn { animation-name: in-btn; }
-.appear--side { animation-name: in-side; }
-.appear--stat { animation-name: in-stat; }
-
-@keyframes in-scale {
-  from { opacity: 0; transform: scale(0.84); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes in-soft {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes in-mask {
-  from { opacity: 0; transform: translateY(40%); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes in-pop {
-  0% { opacity: 0; transform: scale(0.9); }
-  70% { opacity: 1; transform: scale(1.03); }
-  100% { opacity: 1; transform: scale(1); }
-}
-@keyframes in-btn {
-  from { opacity: 0; transform: translateY(18px) scale(0.94); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes in-side {
-  from { opacity: 0; transform: translateX(22px); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes in-stat {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes in-star {
-  0% { opacity: 0; transform: scale(0.2) rotate(-50deg); }
-  65% { opacity: 1; transform: scale(1.2) rotate(8deg); }
-  100% { opacity: 1; transform: scale(1) rotate(0deg); }
-}
-@keyframes in-em {
-  from { opacity: 0.35; filter: blur(4px); }
-  to { opacity: 1; filter: none; }
-}
-
-.badge-star {
-  animation: in-star 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.28s;
-}
-h1 em {
-  animation: in-em 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.72s;
-}
-
-/* Responsive (Exact Breakpoints) */
-@media (min-width: 1600px) {
-  :root {
-    --logo: 17px; --logo-mark: 24px; --nav: 15px; --nav-h: 44px; --btn: 15px; --btn-h: 44px;
-    --hero-btn-h: 48px; --h1: 64px; --lede: 18px; --badge: 13.5px; --stat-size: 15px;
-    --header-y: 28px; --header-x: 64px; --stats-x: 96px; --stats-y: 44px; --copy-max: 980px; --lede-max: 540px;
-  }
-  #site-nav a { padding: 0 20px; }
-  .badge { margin-bottom: 26px; }
-  .lede { margin-top: 22px; }
-  .hero-actions { margin-top: 30px; gap: 12px; }
-  .stat-icon { width: 22px; height: 22px; }
-  .stat-icon-wide { width: 45px; height: 24px; }
-}
-
-@media (min-width: 1920px) {
-  :root {
-    --logo: 18px; --logo-mark: 26px; --nav: 16px; --nav-h: 48px; --btn: 16px; --btn-h: 48px;
-    --hero-btn-h: 52px; --h1: 76px; --lede: 20px; --badge: 14.5px; --stat-size: 16px;
-    --header-y: 32px; --header-x: 80px; --stats-x: 120px; --stats-y: 52px; --copy-max: 1120px; --lede-max: 620px;
-  }
-  #site-nav { gap: 10px; }
-  #site-nav a { padding: 0 22px; }
-  .btn { padding: 0 22px; }
-  .badge { padding: 10px 15px; }
-  .stat-icon-wide { width: 48px; height: 26px; }
-}
-
-@media (min-width: 2560px) {
-  :root {
-    --h1: 88px; --lede: 22px; --header-x: 120px; --stats-x: 160px; --copy-max: 1280px; --lede-max: 680px;
-  }
-}
-
-@media (min-width: 1280px) and (max-width: 1599px) {
-  :root {
-    --h1: 54px; --lede: 16px; --header-x: 48px; --stats-x: 80px; --copy-max: 900px;
-  }
-}
-
-@media (min-width: 901px) and (max-width: 1279px) {
-  :root {
-    --logo: 15px; --nav: 13px; --nav-h: 36px; --btn: 13px; --btn-h: 38px; --hero-btn-h: 40px;
-    --h1: 42px; --lede: 15px; --badge: 12px; --stat-size: 12.5px; --header-y: 16px; --header-x: 28px;
-    --stats-x: 36px; --stats-y: 28px; --hero-gap: 64px; --copy-max: 760px; --lede-max: 440px;
-  }
-  #site-nav a { padding: 0 14px; }
-  .badge { margin-bottom: 16px; }
-  .lede { margin-top: 14px; }
-  .hero-actions { margin-top: 20px; }
-}
-
-@media (min-width: 901px) and (max-height: 850px) {
-  :root {
-    --header-y: 14px; --stats-y: 24px; --hero-gap: 48px; --h1: 40px;
-  }
-  .badge { margin-bottom: 12px; }
-  .lede { margin-top: 12px; }
-  .hero-actions { margin-top: 16px; }
-}
-
-@media (min-width: 901px) and (max-height: 720px) {
-  :root {
-    --h1: 34px; --lede: 14px; --hero-gap: 32px; --stats-y: 18px; --nav-h: 30px; --btn-h: 34px; --hero-btn-h: 36px;
-  }
-  .badge { margin-bottom: 8px; }
-}
-
-@media (min-width: 901px) {
-  html, body { height: 100%; overflow: hidden; }
-  .page { height: 100vh; height: 100dvh; overflow: hidden; }
-}
-
-@media (max-width: 900px) {
-  html, body { height: auto; overflow-y: auto; }
-  #site-nav { display: none; }
-  .header {
-    grid-template-columns: 1fr auto auto;
-    gap: 8px;
-    padding: 16px 18px 10px;
-    padding-top: max(16px, env(safe-area-inset-top));
-  }
-  .burger { display: flex; z-index: 80; }
-  .header-cta { display: inline-flex; z-index: 80; justify-self: end; }
-  .menu-backdrop { display: block; }
-  .mobile-nav { display: flex; }
-  .hero { padding: 20px 20px 64px; align-items: flex-end; }
-  .stats { flex-direction: column; align-items: center; gap: 16px; white-space: normal; }
-  .hero-copy, .lede { max-width: 100%; }
-  :root {
-    --logo: 16px; --btn: 15px; --btn-h: 46px; --hero-btn-h: 48px; --h1: 36px; --lede: 16.5px;
-    --badge: 13.5px; --stat-size: 15px; --header-y: 16px; --header-x: 18px;
-    --stats-x: 20px; --stats-y: 28px; --hero-gap: 36px;
-  }
-}
-
-@media (max-width: 560px) {
-  :root { --h1: 34px; --lede: 16px; --header-x: 16px; }
-  .hero-actions { flex-direction: column; align-items: stretch; }
-  .hero-actions .btn { width: 100%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    transition: none !important;
-    animation: none !important;
-  }
-  .appear, .hero-photo, h1 em, .badge-star {
-    opacity: 1 !important;
-    transform: none !important;
-    clip-path: none !important;
-    filter: none !important;
-  }
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="UnifAI — The unified operating layer for enterprise AI systems.">
+  <title>UnifAI — The Unified Operating Layer for Enterprise AI Systems</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23d5ad62' stroke-width='1.6' opacity='.55'/%3E%3Ccircle cx='12' cy='4' r='1.7' fill='%23f0d49a'/%3E%3Ccircle cx='19' cy='16' r='1.7' fill='%23f0d49a'/%3E%3Ccircle cx='5' cy='16' r='1.7' fill='%23f0d49a'/%3E%3Ccircle cx='12' cy='12' r='2.2' fill='%23f0d49a'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body style="background:#000;color:#fff">
+<body>
 
-<div class="grain"></div>
+  <!-- Film Grain Overlay -->
+  <div class="grain"></div>
 
-<div class="hero-photo">
-  <video id="bgVideo" autoplay muted loop playsinline preload="auto" webkit-playsinline src="background.mp4">
-    <source src="background.mp4" type="video/mp4">
-    <source src="hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4" type="video/mp4">
-    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4" type="video/mp4">
-  </video>
-</div>
+  <!-- 3D Video Background Animation (100% Opacity, No Overlay) -->
+  <div class="hero-photo" aria-hidden="true">
+    <video id="bgVideo" autoplay muted loop playsinline preload="auto" referrerpolicy="no-referrer" webkit-playsinline src="background.mp4">
+      <source src="background.mp4" type="video/mp4">
+      <source src="hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4" type="video/mp4">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4" type="video/mp4">
+    </video>
+  </div>
 
-<div class="page">
+  <!-- Ambient Light Orbs -->
+  <div class="page-glow glow-1"></div>
+  <div class="page-glow glow-2"></div>
+  <div class="page-glow glow-3"></div>
+
+  <!-- Mobile Drawer & Backdrop -->
   <div class="menu-backdrop" id="menuBackdrop"></div>
-  
-  <header class="header">
-    <a href="#top" class="logo appear appear--scale" aria-label="Vesper.ai" style="--d: 0.08s">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <g transform="rotate(-30 12 12)">
-          <circle cx="7.3" cy="3.2" r="1.45"/>
-          <rect x="5.5" y="4.7" width="3.6" height="14.6" rx="1.8"/>
-          <rect x="14.9" y="4.7" width="3.6" height="14.6" rx="1.8"/>
-          <circle cx="16.7" cy="20.8" r="1.45"/>
-        </g>
-      </svg>
-      <span class="logo-wordmark">Vesper<span class="logo-suffix">.ai</span></span>
-    </a>
-    
-    <nav id="site-nav" aria-label="Primary">
-      <a href="#benefits" class="appear appear--scale" style="--d: 0.16s">Benefits</a>
-      <a href="#how-it-works" class="appear appear--soft" style="--d: 0.28s">How It Works</a>
-      <a href="#faqs" class="appear appear--scale" style="--d: 0.40s">FAQs</a>
-      <a href="#pricing" class="appear appear--soft" style="--d: 0.52s">Pricing</a>
-    </nav>
-    
-    <a href="#start" class="btn btn-solid header-cta appear appear--scale" style="--d: 0.34s">Start for Free</a>
-    
-    <button class="burger" id="burgerBtn" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
-      <span class="bar b1"></span>
-      <span class="bar b2"></span>
-      <span class="bar b3"></span>
-    </button>
-    
-    <nav class="mobile-nav" id="mobileNav">
-      <a href="#benefits">Benefits</a>
-      <a href="#how-it-works">How It Works</a>
-      <a href="#faqs">FAQs</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#start" class="btn btn-solid" style="margin-top: 14px; padding: 12px 22px;">Start for Free</a>
-    </nav>
-  </header>
-  
-  <main class="hero" id="top">
-    <div class="hero-copy">
-      <div class="badge appear appear--pop" style="--d: 0.22s">
-        <svg class="badge-star" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2.6C12.55 2.6 12.88 3.15 13.08 4.7c.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C3.15 12.88 2.6 12.55 2.6 12s.55-.88 2.1-1.08c4.7-.62 5.6-1.52 6.22-6.22C11.12 3.15 11.45 2.6 12 2.6Z"/>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
+    <a href="#problem">Problem</a>
+    <a href="#core">Capabilities</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#governance">Governance</a>
+    <a href="#contact">Contact</a>
+    <a class="mobile-nav-cta" href="mailto:hello@yespanchi.com?subject=UnifAI%20Enquiry">Request access ↗</a>
+  </nav>
+
+  <div class="site-wrapper">
+    <!-- Topbar Navigation -->
+    <header class="topbar">
+      <a class="brand appear appear--scale" style="--d: 0.05s" href="#top" aria-label="UnifAI home">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4" opacity=".4"/>
+          <line x1="12" y1="12" x2="12" y2="4" stroke="currentColor" stroke-width="1.1"/>
+          <line x1="12" y1="12" x2="19" y2="16" stroke="currentColor" stroke-width="1.1"/>
+          <line x1="12" y1="12" x2="5" y2="16" stroke="currentColor" stroke-width="1.1"/>
+          <circle cx="12" cy="4" r="1.6" fill="currentColor"/>
+          <circle cx="19" cy="16" r="1.6" fill="currentColor"/>
+          <circle cx="5" cy="16" r="1.6" fill="currentColor"/>
+          <circle cx="12" cy="12" r="2.1" fill="currentColor"/>
         </svg>
-        Operational AI Infrastructure
+        <span class="wordmark">Unif<em>AI</em></span>
+      </a>
+
+      <nav id="siteNav" aria-label="Primary Navigation">
+        <a class="appear appear--scale" style="--d: 0.14s" href="#problem">Problem</a>
+        <a class="appear appear--soft" style="--d: 0.22s" href="#core">Capabilities</a>
+        <a class="appear appear--scale" style="--d: 0.30s" href="#architecture">Architecture</a>
+        <a class="appear appear--soft" style="--d: 0.38s" href="#governance">Governance</a>
+        <a class="appear appear--scale" style="--d: 0.46s" href="#contact">Contact</a>
+      </nav>
+
+      <div class="topbar-right">
+        <a class="btn solid nav-cta appear appear--scale" style="--d: 0.34s" href="mailto:hello@yespanchi.com?subject=UnifAI%20Enquiry">Request access ↗</a>
+        <button class="burger" id="burgerBtn" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+          <span class="bar b1"></span>
+          <span class="bar b2"></span>
+          <span class="bar b3"></span>
+        </button>
       </div>
-      
-      <h1>
-        <span class="headline-line appear appear--mask" style="--d: 0.42s">Train <em>AI agents</em> on your</span>
-        <span class="headline-line appear appear--mask" style="--d: 0.62s">workflows in minutes.</span>
-      </h1>
-      
-      <p class="lede appear appear--soft" style="--d: 0.82s; animation-duration: 1.25s">
-        Deploy adaptive AI agents that learn, execute, and scale operational tasks across your business.
-      </p>
-      
-      <div class="hero-actions">
-        <a href="#start" class="btn btn-solid appear appear--btn" style="--d: 0.96s">Start for Free</a>
-        <a href="#demo" class="btn btn-ghost appear appear--side" style="--d: 1.10s">See it in action</a>
-      </div>
-    </div>
-  </main>
-  
-  <footer class="stats">
-    <div class="stat appear appear--stat" style="--d: 1.12s">
-      <svg class="stat-icon" viewBox="0 0 24 24">
-        <defs>
-          <linearGradient id="grad1" x1="3" y1="2" x2="14" y2="22">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.38"/>
-            <stop offset="100%" stop-color="#3a3a3a" stop-opacity="0.62"/>
-          </linearGradient>
-          <linearGradient id="grad2" x1="3" y1="2" x2="14" y2="22">
-            <stop offset="0%" stop-color="#3a3a3a" stop-opacity="0.38"/>
-            <stop offset="100%" stop-color="#ffffff" stop-opacity="0.62"/>
-          </linearGradient>
-        </defs>
-        <rect x="3.4" y="2.6" width="7.2" height="18.8" rx="3.6" fill="url(#grad1)"/>
-        <rect x="13.4" y="2.6" width="7.2" height="18.8" rx="3.6" fill="url(#grad2)"/>
-        <rect x="9.2" y="10.9" width="5.6" height="2.2" rx="1.1" fill="#4a4a4a"/>
-      </svg>
-      <span>4.2M+ workflows automated</span>
-    </div>
-    
-    <div class="stat appear appear--stat" style="--d: 1.28s">
-      <svg class="stat-icon" viewBox="0 0 24 24">
-        <rect x="2.4" y="2.4" width="19.2" height="19.2" rx="6.2" fill="#ffffff"/>
-        <path d="M12 7.1v7.4" stroke="#111" stroke-width="1.85" stroke-linecap="round" fill="none"/>
-        <path d="M8.15 12.35L12 16.2l3.85-3.85" stroke="#111" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      </svg>
-      <span>92% reduction in manual operations</span>
-    </div>
-    
-    <div class="stat appear appear--stat" style="--d: 1.44s">
-      <svg class="stat-icon stat-icon-wide" viewBox="0 0 40 22">
-        <circle cx="10.2" cy="11" r="9.2" fill="#2b2b2b"/>
-        <ellipse cx="10.2" cy="12.1" rx="4.15" ry="3.7" fill="#f4f4f4"/>
-        <polygon points="6.5,9 8.5,10.5 7.5,12" fill="#2b2b2b"/>
-        <polygon points="13.9,9 11.9,10.5 12.9,12" fill="#2b2b2b"/>
-        <circle cx="9.2" cy="11.5" r="0.7" fill="#1a1a1a"/>
-        <circle cx="11.2" cy="11.5" r="0.7" fill="#1a1a1a"/>
-        <circle cx="20.2" cy="11" r="9.2" fill="#ffffff"/>
-        <circle cx="18.5" cy="10.5" r="1.7" fill="#111"/>
-        <circle cx="21.9" cy="10.5" r="1.7" fill="#111"/>
-        <ellipse cx="20.2" cy="13.5" rx="1.2" ry="0.8" fill="#111"/>
-        <path d="M17.5 15.5 Q20.2 17.5 22.9 15.5" stroke="#111" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-        <circle cx="30.2" cy="11" r="9.2" fill="#f26b1d"/>
-        <text x="30.2" y="15.1" font-family="Inter, system-ui, sans-serif" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">e</text>
-      </svg>
-      <span>180+ operational teams onboarded</span>
-    </div>
-  </footer>
-</div>
+    </header>
 
-<script>
-(function() {
-  const bgVideo = document.getElementById('bgVideo') || document.querySelector('.hero-photo video');
-  if (bgVideo) {
-    bgVideo.muted = true;
-    bgVideo.defaultMuted = true;
-    bgVideo.playsInline = true;
+    <main id="top">
 
-    const playVideo = () => {
-      const p = bgVideo.play();
-      if (p !== undefined) {
-        p.catch(() => {
-          if (bgVideo.src && !bgVideo.src.includes('cloudfront.net')) {
-            bgVideo.src = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4';
-            bgVideo.load();
-            bgVideo.play().catch(() => {});
-          }
-          const onInteract = () => {
-            bgVideo.play();
-            window.removeEventListener('click', onInteract);
-            window.removeEventListener('touchstart', onInteract);
-          };
-          window.addEventListener('click', onInteract, { once: true });
-          window.addEventListener('touchstart', onInteract, { once: true });
-        });
-      }
-    };
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-grid"></div>
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', playVideo);
-    } else {
-      playVideo();
-    }
-  }
+        <div class="hero-copy">
+          <div class="badge appear appear--pop" style="--d: 0.16s">
+            <svg class="badge-star" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
+              <path d="M12 2.6c.55 0 .88.55 1.08 2.1.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C3.15 12.88 2.6 12.55 2.6 12s.55-.88 2.1-1.08c4.7-.62 5.6-1.52 6.22-6.22.2-1.55.53-2.1 1.08-2.1Z"/>
+            </svg>
+            YesPanchi · New product
+          </div>
 
-  const appearEls = Array.from(document.querySelectorAll('.appear'));
-  const heroPhoto = document.querySelector('.hero-photo');
-  
-  appearEls.forEach(el => {
-    el.addEventListener('animationend', () => el.classList.add('is-in'), { once: true });
-  });
-  
-  if (heroPhoto) {
-    heroPhoto.addEventListener('animationend', () => heroPhoto.classList.add('is-in'), { once: true });
-  }
-  
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const stillAnimating = appearEls.some(el => {
-        if (typeof el.getAnimations !== 'function') return false;
-        return el.getAnimations().some(a => a.playState === 'running' || a.playState === 'finished');
-      });
-      
-      if (!stillAnimating) {
-        appearEls.forEach(el => el.classList.add('is-in'));
-        if (heroPhoto) heroPhoto.classList.add('is-in');
-      }
-    });
-  });
-  
-  const burger = document.getElementById('burgerBtn');
-  const menuBackdrop = document.getElementById('menuBackdrop');
-  const mobileNav = document.getElementById('mobileNav');
-  
-  function openMenu() {
-    document.body.classList.add('menu-open');
-    burger.setAttribute('aria-expanded', 'true');
-    burger.setAttribute('aria-label', 'Close menu');
-  }
-  
-  function closeMenu() {
-    document.body.classList.remove('menu-open');
-    burger.setAttribute('aria-expanded', 'false');
-    burger.setAttribute('aria-label', 'Open menu');
-  }
-  
-  if (burger) {
-    burger.addEventListener('click', () => {
-      document.body.classList.contains('menu-open') ? closeMenu() : openMenu();
-    });
-  }
-  
-  if (menuBackdrop) {
-    menuBackdrop.addEventListener('click', closeMenu);
-  }
-  
-  if (mobileNav) {
-    mobileNav.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') closeMenu();
-    });
-  }
-  
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
-  });
-  
-  window.addEventListener('resize', () => {
-    if (window.matchMedia('(min-width: 901px)').matches) closeMenu();
-  });
-})();
-</script>
+          <h1>
+            <span class="headline-line"><span class="appear appear--mask" style="--d: 0.30s">The unified operating layer for</span></span>
+            <span class="headline-line"><span class="appear appear--mask" style="--d: 0.46s"><em>enterprise AI.</em></span></span>
+          </h1>
 
+          <p class="lede appear appear--soft" style="--d: 0.62s">
+            Connect. Control. Govern. Recover. UnifAI gives organizations one operating layer for AI agents, tools, providers, policies and resilience.
+          </p>
+
+          <div class="actions">
+            <a class="btn solid appear appear--btn" style="--d: 0.74s" href="#core">Explore the platform ↓</a>
+            <a class="btn ghost appear appear--side" style="--d: 0.86s" href="mailto:hello@yespanchi.com?subject=UnifAI%20Enquiry">Talk to YesPanchi</a>
+          </div>
+
+          <div class="hero-meta">
+            <span class="appear appear--stat" style="--d: 0.94s">23+ LLM providers</span>
+            <span class="appear appear--stat" style="--d: 1.00s">OpenAI-compatible API</span>
+            <span class="appear appear--stat" style="--d: 1.06s">Enterprise governance</span>
+          </div>
+        </div>
+
+        <!-- Interactive Control Board Console -->
+        <div class="hero-art appear appear--scale" style="--d: 0.42s" aria-label="Interactive UnifAI control layer visualization">
+          <div class="ambient ambient-a"></div>
+          <div class="ambient ambient-b"></div>
+          <div class="orbit o1"></div>
+          <div class="orbit o2"></div>
+
+          <div class="query-panel">
+            <div class="query-top">
+              <span class="status-dot"></span>
+              <span>ASK UNIFAI</span>
+              <b>LIVE CONTROL LAYER</b>
+            </div>
+
+            <div class="query-main">
+              <span class="prompt">›</span>
+              <span id="heroQuery">Which AI agents are active right now?</span>
+              <span class="cursor"></span>
+            </div>
+
+            <div class="query-suggestions">
+              <button class="active" data-query="Which AI agents are active right now?" data-agents="128" data-policies="24" data-providers="23+" data-health="99.98%">Agent visibility</button>
+              <button data-query="Where is policy blocking a request?" data-agents="142" data-policies="28" data-providers="23+" data-health="100%">Policy check</button>
+              <button data-query="What happens if a provider fails?" data-agents="128" data-policies="24" data-providers="23+" data-health="99.99%">Failover path</button>
+              <button data-query="Which teams are using AI tools?" data-agents="156" data-policies="31" data-providers="23+" data-health="99.97%">Usage map</button>
+            </div>
+
+            <div class="query-result">
+              <div><span>AGENTS</span><strong id="metricAgents">128</strong></div>
+              <div><span>POLICIES</span><strong id="metricPolicies">24</strong></div>
+              <div><span>PROVIDERS</span><strong id="metricProviders">23+</strong></div>
+              <div><span>HEALTH</span><strong class="live" id="metricHealth">99.98%</strong></div>
+            </div>
+          </div>
+
+          <div class="signal s1">AGENTS <b>LIVE</b></div>
+          <div class="signal s2">POLICY <b>ACTIVE</b></div>
+          <div class="signal s3">FAILOVER <b>READY</b></div>
+
+          <div class="data-stream stream-a">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="data-stream stream-b">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Problem Section -->
+      <section id="problem" class="section split glass-section">
+        <div>
+          <div class="eyebrow">THE PROBLEM</div>
+          <h2>AI is spreading faster than its controls.</h2>
+        </div>
+        <div class="copy">
+          <p>Organizations run AI agents across support, operations, legal, HR, finance and healthcare — often disconnected from one another.</p>
+          <div class="problem-list">
+            <div>
+              <b>01</b>
+              <span>No central visibility<br><small>Fragmented tool access</small></span>
+            </div>
+            <div>
+              <b>02</b>
+              <span>Governance gaps<br><small>Inconsistent policy enforcement</small></span>
+            </div>
+            <div>
+              <b>03</b>
+              <span>Disconnected memory<br><small>Context stays trapped</small></span>
+            </div>
+            <div>
+              <b>04</b>
+              <span>Agent failures<br><small>No resilient fallback</small></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Capabilities Grid -->
+      <section id="core" class="section glass-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">CORE CAPABILITIES</div>
+            <h2>Enterprise-grade by default.</h2>
+          </div>
+          <p>One control layer across agents, providers and workflows.</p>
+        </div>
+
+        <div class="cards">
+          <article>
+            <i>01</i>
+            <h3>Unified Agent Management</h3>
+            <p>Discover, register and monitor agent health from one operating layer.</p>
+          </article>
+          <article>
+            <i>02</i>
+            <h3>Central Governance</h3>
+            <p>Permissions, audit trails and policy enforcement across the ecosystem.</p>
+          </article>
+          <article>
+            <i>03</i>
+            <h3>Virtual Keys & Budgets</h3>
+            <p>Hierarchical cost control by team, key and customer.</p>
+          </article>
+          <article>
+            <i>04</i>
+            <h3>Distributed Tracing</h3>
+            <p>OTLP metrics for operational visibility across your AI stack.</p>
+          </article>
+          <article>
+            <i>05</i>
+            <h3>Automatic Failover</h3>
+            <p>Load balancing, semantic caching and resilient routing.</p>
+          </article>
+          <article>
+            <i>06</i>
+            <h3>Full Audit Trails</h3>
+            <p>Every relevant action logged for compliance readiness.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Feature Band / Core Differentiator -->
+      <section class="feature-band">
+        <div class="eyebrow">THE CORE DIFFERENTIATOR</div>
+        <h2>Self-healing AI infrastructure.</h2>
+        <p>When an enterprise agent goes offline, UnifAI detects, diagnoses and routes recovery through a controlled workflow.</p>
+        <div class="steps">
+          <span>01 Detect</span>
+          <span>02 Review history</span>
+          <span>03 Map dependencies</span>
+          <span>04 Read patterns</span>
+          <span>05 Deploy replacement</span>
+        </div>
+      </section>
+
+      <!-- Architecture Section -->
+      <section id="architecture" class="section architecture glass-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">ARCHITECTURE</div>
+            <h2>How UnifAI works.</h2>
+          </div>
+          <p>Agents connect through the core engine and surface in a unified dashboard.</p>
+        </div>
+
+        <div class="architecture-board">
+          <div class="arch-box">
+            ENTERPRISE AGENTS
+            <small>Autonomous tasks<br>Tools &amp; workflows</small>
+          </div>
+          <div class="connector" aria-hidden="true"></div>
+          <div class="arch-box center">
+            UNIFAI CORE ENGINE
+            <small>Processing · governance<br>Monitoring · failover</small>
+          </div>
+          <div class="connector" aria-hidden="true"></div>
+          <div class="arch-box">
+            UNIFIED DASHBOARD
+            <small>Observability<br>Single-pane visibility</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Governance & Edge Section -->
+      <section id="governance" class="section split glass-section">
+        <div>
+          <div class="eyebrow">GOVERNANCE &amp; EDGE</div>
+          <h2>See every agent. Govern every interaction.</h2>
+        </div>
+        <div class="copy">
+          <p>UnifAI Edge routes outbound AI traffic through the central gateway, giving security teams visibility into shadow AI usage without replacing existing endpoint security tools.</p>
+          <ul class="plain">
+            <li>Virtual keys, teams &amp; budgets</li>
+            <li>OIDC / OAuth2 provisioning</li>
+            <li>Guardrails &amp; adaptive balancing</li>
+            <li>OTLP tracing</li>
+            <li>Permission controls &amp; audit logs</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Platform Section (Provider Wall) -->
+      <section class="section glass-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">PLATFORM</div>
+            <h2>One layer. Every provider.</h2>
+          </div>
+          <p>OpenAI-compatible access across the provider ecosystem.</p>
+        </div>
+
+        <div class="provider-wall">
+          <span>OpenAI</span>
+          <span>Anthropic</span>
+          <span>AWS Bedrock</span>
+          <span>Google Vertex</span>
+          <span>Azure</span>
+          <span>Cerebras</span>
+          <span>Cohere</span>
+          <span>Mistral</span>
+          <span>Ollama</span>
+          <span>Groq</span>
+          <span>+13 more</span>
+        </div>
+      </section>
+
+      <!-- Vision Section -->
+      <section class="vision">
+        <div class="eyebrow">VISION</div>
+        <h2>The future of enterprise is not one AI.<br><em>It is many.</em></h2>
+        <p>UnifAI is building the foundation to operate hundreds of specialized agents with visibility, governance, shared intelligence and resilience.</p>
+      </section>
+
+      <!-- Stats Band -->
+      <section class="stats-band">
+        <div class="stat-card">
+          <strong id="statAgents">128 agents</strong>
+          <span>orchestrated live across the operating layer</span>
+        </div>
+
+        <div class="stat-card">
+          <strong id="statPolicies">24 policies</strong>
+          <span>enforced automatically at the gateway</span>
+        </div>
+
+        <div class="stat-card">
+          <strong id="statUptime">99.98% uptime</strong>
+          <span>across 23+ pooled LLM providers</span>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact">
+        <div class="eyebrow">UNIFAI / YESPANCHI</div>
+        <h2>Build the control layer for your AI ecosystem.</h2>
+        <a class="btn solid" href="mailto:hello@yespanchi.com?subject=UnifAI%20Enquiry">hello@yespanchi.com ↗</a>
+        <p>UNIFAI — The Central Operating Layer for Enterprise AI Systems.</p>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <span>© YesPanchi Tech Solutions Private Limited</span>
+      <span>UNIFAI</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
