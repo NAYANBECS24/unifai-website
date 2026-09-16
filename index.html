@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="UnifAI — The unified operating layer for enterprise AI systems.">
+  <title>UnifAI — The Unified Operating Layer for Enterprise AI Systems</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23d5ad62' stroke-width='1.6' opacity='.55'/%3E%3Ccircle cx='12' cy='4' r='1.7' fill='%23f0d49a'/%3E%3Ccircle cx='19' cy='16' r='1.7' fill='%23f0d49a'/%3E%3Ccircle cx='5' cy='16' r='1.7' fill='%23f0d49a'/%3E%3Ccircle cx='12' cy='12' r='2.2' fill='%23f0d49a'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Grain Filter Overlay -->
+  <div class="grain"></div>
+
+  <!-- Cinematic 3D Video Background from new.html -->
+  <div class="hero-photo" aria-hidden="true">
+    <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4" autoplay muted loop playsinline></video>
+  </div>
+
+  <!-- Ambient Light Orbs -->
+  <div class="page-glow glow-1"></div>
+  <div class="page-glow glow-2"></div>
+  <div class="page-glow glow-3"></div>
+
+  <!-- Mobile Drawer & Backdrop -->
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
+    <a href="#problem">Problem</a>
+    <a href="#core">Capabilities</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#governance">Governance</a>
+    <a href="#contact">Contact</a>
+    <a class="mobile-nav-cta" href="mailto:hello@yespanchi.com?subject=UnifAI%20Enquiry">Request access ↗</a>
+  </nav>
+
+  <div class="site-wrapper">
+    <!-- Header / Topbar Navigation -->
+    <header class="topbar">
+      <a class="brand appear appear--scale" style="--d: 0.05s" href="#top" aria-label="UnifAI home">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4" opacity=".4"/>
+          <line x1="12" y1="12" x2="12" y2="4" stroke="currentColor" stroke-width="1.1"/>
+          <line x1="12" y1="12" x2="19" y2="16" stroke="currentColor" stroke-width="1.1"/>
+          <line x1="12" y1="12" x2="5" y2="16" stroke="currentColor" stroke-width="1.1"/>
+          <circle cx="12" cy="4" r="1.6" fill="currentColor"/>
+          <circle cx="19" cy="16" r="1.6" fill="currentColor"/>
+          <circle cx="5" cy="16" r="1.6" fill="currentColor"/>
+          <circle cx="12" cy="12" r="2.1" fill="currentColor"/>
+        </svg>
+        <span class="wordmark">Unif<em>AI</em></span>
+      </a>
+
+      <nav id="siteNav" aria-label="Primary Navigation">
+        <a class="appear appear--scale" style="--d: 0.14s" href="#problem">Problem</a>
+        <a class="appear appear--soft" style="--d: 0.22s" href="#core">Capabilities</a>
+        <a class="appear appear--scale" style="--d: 0.30s" href="#architecture">Architecture</a>
+        <a class="appear appear--soft" style="--d: 0.38s" href="#governance">Governance</a>
+        <a class="appear appear--scale" style="--d: 0.46s" href="#contact">Contact</a>
+      </nav>
+
+      <div class="topbar-right">
+        <a class="btn btn-solid nav-cta appear appear--scale" style="--d: 0.34s" href="mailto:hello@yespanchi.com?subject=UnifAI%20Enquiry">Request access ↗</a>
+        <button class="burger" id="burgerBtn" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+          <span class="bar b1"></span>
+          <span class="bar b2"></span>
+          <span class="bar b3"></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-grid"></div>
+
+        <div class="hero-copy">
+          <div class="badge appear appear--pop" style="--d: 0.16s">
+            <svg class="badge-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2.6c.55 0 .88.55 1.08 2.1.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C3.15 12.88 2.6 12.55 2.6 12s.55-.88 2.1-1.08c4.7-.62 5.6-1.52 6.22-6.22.2-1.55.53-2.1 1.08-2.1Z"/>
+            </svg>
+            YesPanchi · New product
+          </div>
+
+          <h1>
+            <span class="headline-line"><span class="appear appear--mask" style="--d: 0.30s">The unified operating layer for</span></span>
+            <span class="headline-line"><span class="appear appear--mask" style="--d: 0.46s"><em>enterprise AI.</em></span></span>
+          </h1>
+
+          <p class="lede appear appear--soft" style="--d: 0.62s">
+            Connect. Control. Govern. Recover. UnifAI gives organizations one operating layer for AI agents, tools, providers, policies and resilience.
+          </p>
+
+          <div class="actions">
+            <a class="btn btn-solid appear appear--btn" style="--d: 0.74s" href="#core">Explore the platform <b>↓</b></a>
+            <a class="btn btn-ghost appear appear--side" style="--d: 0.86s" href="mailto:hello@yespanchi.com?subject=UnifAI%20Enquiry">Talk to YesPanchi</a>
+          </div>
+
+          <div class="hero-meta">
+            <span class="appear appear--stat" style="--d: 0.94s">23+ LLM providers</span>
+            <span class="appear appear--stat" style="--d: 1.00s">OpenAI-compatible API</span>
+            <span class="appear appear--stat" style="--d: 1.06s">Enterprise governance</span>
+          </div>
+        </div>
+
+        <!-- Interactive Control Board Console -->
+        <div class="hero-art appear appear--scale" style="--d: 0.42s" aria-label="Interactive UnifAI control layer visualization">
+          <div class="ambient ambient-a"></div>
+          <div class="ambient ambient-b"></div>
+          <div class="orbit o1"></div>
+          <div class="orbit o2"></div>
+
+          <div class="query-panel">
+            <div class="query-top">
+              <span class="status-dot"></span>
+              <span>ASK UNIFAI</span>
+              <b>LIVE CONTROL LAYER</b>
+            </div>
+
+            <div class="query-main">
+              <span class="prompt">›</span>
+              <span id="heroQuery">Which AI agents are active right now?</span>
+              <span class="cursor"></span>
+            </div>
+
+            <div class="query-suggestions">
+              <button class="active" data-query="Which AI agents are active right now?" data-agents="128" data-policies="24" data-providers="23+" data-health="99.98%">Agent visibility</button>
+              <button data-query="Where is policy blocking a request?" data-agents="142" data-policies="28" data-providers="23+" data-health="100%">Policy check</button>
+              <button data-query="What happens if a provider fails?" data-agents="128" data-policies="24" data-providers="23+" data-health="99.99%">Failover path</button>
+              <button data-query="Which teams are using AI tools?" data-agents="156" data-policies="31" data-providers="23+" data-health="99.97%">Usage map</button>
+            </div>
+
+            <div class="query-result">
+              <div><span>AGENTS</span><strong id="metricAgents">128</strong></div>
+              <div><span>POLICIES</span><strong id="metricPolicies">24</strong></div>
+              <div><span>PROVIDERS</span><strong id="metricProviders">23+</strong></div>
+              <div><span>HEALTH</span><strong class="live" id="metricHealth">99.98%</strong></div>
+            </div>
+          </div>
+
+          <div class="signal s1">AGENTS <b>LIVE</b></div>
+          <div class="signal s2">POLICY <b>ACTIVE</b></div>
+          <div class="signal s3">FAILOVER <b>READY</b></div>
+
+          <div class="data-stream stream-a">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="data-stream stream-b">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Problem Section -->
+      <section id="problem" class="section split glass-section">
+        <div>
+          <div class="eyebrow">THE PROBLEM</div>
+          <h2>AI is spreading faster than its controls.</h2>
+        </div>
+        <div class="copy">
+          <p>Organizations run AI agents across support, operations, legal, HR, finance and healthcare — often disconnected from one another.</p>
+          <div class="problem-list">
+            <div>
+              <b>01</b>
+              <span>No central visibility<br><small>Fragmented tool access</small></span>
+            </div>
+            <div>
+              <b>02</b>
+              <span>Governance gaps<br><small>Inconsistent policy enforcement</small></span>
+            </div>
+            <div>
+              <b>03</b>
+              <span>Disconnected memory<br><small>Context stays trapped</small></span>
+            </div>
+            <div>
+              <b>04</b>
+              <span>Agent failures<br><small>No resilient fallback</small></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Capabilities Grid -->
+      <section id="core" class="section glass-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">CORE CAPABILITIES</div>
+            <h2>Enterprise-grade by default.</h2>
+          </div>
+          <p>One control layer across agents, providers and workflows.</p>
+        </div>
+
+        <div class="cards">
+          <article>
+            <i>01</i>
+            <h3>Unified Agent Management</h3>
+            <p>Discover, register and monitor agent health from one operating layer.</p>
+          </article>
+          <article>
+            <i>02</i>
+            <h3>Central Governance</h3>
+            <p>Permissions, audit trails and policy enforcement across the ecosystem.</p>
+          </article>
+          <article>
+            <i>03</i>
+            <h3>Virtual Keys & Budgets</h3>
+            <p>Hierarchical cost control by team, key and customer.</p>
+          </article>
+          <article>
+            <i>04</i>
+            <h3>Distributed Tracing</h3>
+            <p>OTLP metrics for operational visibility across your AI stack.</p>
+          </article>
+          <article>
+            <i>05</i>
+            <h3>Automatic Failover</h3>
+            <p>Load balancing, semantic caching and resilient routing.</p>
+          </article>
+          <article>
+            <i>06</i>
+            <h3>Full Audit Trails</h3>
+            <p>Every relevant action logged for compliance readiness.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Feature Band / Core Differentiator -->
+      <section class="feature-band">
+        <div class="eyebrow">THE CORE DIFFERENTIATOR</div>
+        <h2>Self-healing AI infrastructure.</h2>
+        <p>When an enterprise agent goes offline, UnifAI detects, diagnoses and routes recovery through a controlled workflow.</p>
+        <div class="steps">
+          <span>01 Detect</span>
+          <span>02 Review history</span>
+          <span>03 Map dependencies</span>
+          <span>04 Read patterns</span>
+          <span>05 Deploy replacement</span>
+        </div>
+      </section>
+
+      <!-- Architecture Section -->
+      <section id="architecture" class="section architecture glass-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">ARCHITECTURE</div>
+            <h2>How UnifAI works.</h2>
+          </div>
+          <p>Agents connect through the core engine and surface in a unified dashboard.</p>
+        </div>
+
+        <div class="architecture-board">
+          <div class="arch-box">
+            ENTERPRISE AGENTS
+            <small>Autonomous tasks<br>Tools &amp; workflows</small>
+          </div>
+          <div class="connector" aria-hidden="true"></div>
+          <div class="arch-box center">
+            UNIFAI CORE ENGINE
+            <small>Processing · governance<br>Monitoring · failover</small>
+          </div>
+          <div class="connector" aria-hidden="true"></div>
+          <div class="arch-box">
+            UNIFIED DASHBOARD
+            <small>Observability<br>Single-pane visibility</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Governance & Edge Section -->
+      <section id="governance" class="section split glass-section">
+        <div>
+          <div class="eyebrow">GOVERNANCE &amp; EDGE</div>
+          <h2>See every agent. Govern every interaction.</h2>
+        </div>
+        <div class="copy">
+          <p>UnifAI Edge routes outbound AI traffic through the central gateway, giving security teams visibility into shadow AI usage without replacing existing endpoint security tools.</p>
+          <ul class="plain">
+            <li>Virtual keys, teams &amp; budgets</li>
+            <li>OIDC / OAuth2 provisioning</li>
+            <li>Guardrails &amp; adaptive balancing</li>
+            <li>OTLP tracing</li>
+            <li>Permission controls &amp; audit logs</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Platform Section (Provider Wall) -->
+      <section class="section glass-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">PLATFORM</div>
+            <h2>One layer. Every provider.</h2>
+          </div>
+          <p>OpenAI-compatible access across the provider ecosystem.</p>
+        </div>
+
+        <div class="provider-wall">
+          <span>OpenAI</span>
+          <span>Anthropic</span>
+          <span>AWS Bedrock</span>
+          <span>Google Vertex</span>
+          <span>Azure</span>
+          <span>Cerebras</span>
+          <span>Cohere</span>
+          <span>Mistral</span>
+          <span>Ollama</span>
+          <span>Groq</span>
+          <span>+13 more</span>
+        </div>
+      </section>
+
+      <!-- Vision Section -->
+      <section class="vision">
+        <div class="eyebrow">VISION</div>
+        <h2>The future of enterprise is not one AI.<br><em>It is many.</em></h2>
+        <p>UnifAI is building the foundation to operate hundreds of specialized agents with visibility, governance, shared intelligence and resilience.</p>
+      </section>
+
+      <!-- Stats Band -->
+      <section class="stats-band">
+        <div class="stat-card">
+          <svg viewBox="0 0 24 22" width="34" height="30" aria-hidden="true">
+            <circle cx="6" cy="11" r="4.6" fill="none" stroke="#e8e8e8" stroke-width="1.4"/>
+            <circle cx="18" cy="6.5" r="3.2" fill="none" stroke="#e8e8e8" stroke-width="1.4"/>
+            <circle cx="18" cy="15.5" r="3.2" fill="none" stroke="#e8e8e8" stroke-width="1.4"/>
+            <line x1="9.6" y1="9.6" x2="15.2" y2="7.2" stroke="#e8e8e8" stroke-width="1.1"/>
+            <line x1="9.6" y1="12.4" x2="15.2" y2="14.8" stroke="#e8e8e8" stroke-width="1.1"/>
+          </svg>
+          <strong>128 agents</strong>
+          <span>orchestrated live across the operating layer</span>
+        </div>
+
+        <div class="stat-card">
+          <svg viewBox="0 0 24 24" width="28" height="30" aria-hidden="true">
+            <path d="M12 2.6 20.4 5.6V11.4C20.4 16.4 17 20.3 12 21.6 7 20.3 3.6 16.4 3.6 11.4V5.6Z" fill="none" stroke="#e8e8e8" stroke-width="1.4"/>
+            <path d="M8.6 12.1 11 14.6 15.6 9.6" fill="none" stroke="#d5ad62" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <strong>24 policies</strong>
+          <span>enforced automatically at the gateway</span>
+        </div>
+
+        <div class="stat-card">
+          <svg viewBox="0 0 28 20" width="38" height="26" aria-hidden="true">
+            <path d="M1 10h5l2.4-6.4L12 16l2.6-9.2L16.4 10H27" fill="none" stroke="#e8e8e8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <strong>99.98% uptime</strong>
+          <span>across 23+ pooled LLM providers</span>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact">
+        <div class="eyebrow">UNIFAI / YESPANCHI</div>
+        <h2>Build the control layer for your AI ecosystem.</h2>
+        <a class="btn btn-solid" href="mailto:hello@yespanchi.com?subject=UnifAI%20Enquiry">hello@yespanchi.com ↗</a>
+        <p>UNIFAI — The Central Operating Layer for Enterprise AI Systems.</p>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <span>© YesPanchi Tech Solutions Private Limited</span>
+      <span>UNIFAI</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

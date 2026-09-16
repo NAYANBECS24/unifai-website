@@ -1,0 +1,20 @@
+{
+  "name": "unifai-website",
+  "version": "1.0.0",
+  "description": "UnifAI — The Unified Operating Layer for Enterprise AI Systems",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "unifai",
+    "yespanchi",
+    "ai",
+    "enterprise-ai",
+    "landing-page",
+    "vercel"
+  ],
+  "author": "YesPanchi Tech Solutions",
+  "license": "MIT"
+}
